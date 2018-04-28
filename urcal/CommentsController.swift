@@ -8,7 +8,13 @@
 
 import UIKit
 
-class CommentsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class CommentsController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ContainerViewDelegate {
+    func handleSend(text: String) {
+        comments.append(text)
+        collectionView?.reloadData()
+    }
+    
+    var comments = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,12 +33,13 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! CommentCell
+        cell.commentText.text = comments[indexPath.row]
         cell.backgroundColor = .blue
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return comments.count
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,6 +53,7 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
     
     lazy var containerView: UIView = {
         let containerView = ContainerView()
+        containerView.delegate = self
         var containerHeight: CGFloat = 50
         containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: containerHeight)
          return containerView

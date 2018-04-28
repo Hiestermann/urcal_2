@@ -16,7 +16,6 @@ class UserPostsView: UITableViewController{
     
     let backView: UIView = {
         let view = UIView()
-        view.backgroundColor = .red
         return view
     }()
     
