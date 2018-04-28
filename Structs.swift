@@ -21,15 +21,17 @@ struct User {
     
 }
 
-struct JSONComment:Decodable {
-    let creationDate: Date
+struct Comment{
+    //let creationDate: Date
+    let commendID: String
     let text: String
     let uid: String
     
-    init(creationDate: Date, text: String, uid: String) {
-        self.creationDate = creationDate
-        self.text = text
-        self.uid = uid
+    init(commentID: String, dictionary: [String: Any]) {
+       // self.creationDate = creationDate
+        self.commendID = commentID
+        self.text = dictionary["text"] as? String ?? ""
+        self.uid = dictionary["uid"] as? String ?? ""
     }
 }
 

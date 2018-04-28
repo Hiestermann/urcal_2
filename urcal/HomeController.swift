@@ -15,8 +15,8 @@ class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     func didTapComment(postID: String) {
         let layout = UICollectionViewFlowLayout()
-        let commentsController = CommentsController(collectionViewLayout: layout)
-        commentsController.postID = postID
+        let commentsController = CommentsController(collectionViewLayout: layout, postID: postID)
+        
         self.navigationController?.pushViewController(commentsController, animated: true)
     }
     

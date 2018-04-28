@@ -9,24 +9,26 @@
 import UIKit
 import Firebase
 
-class CommentsController: UICollectionViewController, UICollectionViewDelegateFlowLayout, ContainerViewDelegate {
+extension CommentsController: ContainerViewDelegate {
     func handleSend(text: String) {
-        comments.append(text)
         guard let postID = postID else { return }
-        guard let userID = Auth.auth().currentUser?.uid else { return }
+        guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let values = ["comment": text, "userID": userID] as [String : Any]
+        let values = ["text": text, "uid": uid] as [String : Any]
         
-        let ref = Database.database().reference().child("Comments").childByAutoId()
-        ref.child(postID).updateChildValues(values) { (err, ref) in
+        let ref = Database.database().reference().child("Comments").child(postID).childByAutoId()
+        ref.updateChildValues(values) { (err, ref) in
             if let err = err {
                 print(err)
             }
         }
         collectionView?.reloadData()
     }
-    
-    var comments = [String]()
+}
+
+class CommentsController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+   
+    var comments = [Comment]()
     
     var postID: String? = nil
     
@@ -46,10 +48,23 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
         fetchPostComments()
     }
     
+     init(collectionViewLayout layout: UICollectionViewLayout, postID: String) {
+        super.init(collectionViewLayout: layout)
+        self.postID = postID
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     fileprivate func fetchPostComments() {
         guard let postID = postID else {return}
-        Database.database().reference().child("Commnets").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
-            print(snapshot.value)
+        Database.database().reference().child("Comments").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let commentsDictionary = snapshot.value as? [String: Any] else { return }
+            let key = snapshot.key
+            let comment = Comment(commentID: key, dictionary: commentsDictionary)
+            print(comment)
+            self.comments.append(comment)
         }) { (err) in
             print(err)
         }
@@ -57,7 +72,7 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! CommentCell
-        cell.commentText.text = comments[indexPath.row]
+        cell.commentText.text = comments[indexPath.row].text
         cell.backgroundColor = .blue
         return cell
     }
