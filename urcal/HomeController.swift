@@ -12,9 +12,11 @@ import MapKit
 import GeoFire
 
 class HomeController: UICollectionViewController, UICollectionViewDelegateFlowLayout, CLLocationManagerDelegate, HomeControllerViewCellDelegate {
-    func didTapComment() {
+    
+    func didTapComment(postID: String) {
         let layout = UICollectionViewFlowLayout()
         let commentsController = CommentsController(collectionViewLayout: layout)
+        commentsController.postID = postID
         self.navigationController?.pushViewController(commentsController, animated: true)
     }
     

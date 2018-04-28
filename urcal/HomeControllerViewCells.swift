@@ -11,7 +11,7 @@ import CoreLocation
 import Firebase
 
 protocol HomeControllerViewCellDelegate {
-    func didTapComment()
+    func didTapComment(postID: String)
 }
 
 class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
@@ -252,7 +252,8 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     }
     
     @objc fileprivate func handleComment() {
-        delegate?.didTapComment()
+        guard let postID = post?.post.postId else { return }
+        delegate?.didTapComment(postID: postID)
     }
     
     func handleBookmark(){

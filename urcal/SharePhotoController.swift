@@ -22,7 +22,6 @@ class SharePhotoController: UIViewController, CLLocationManagerDelegate {
     
    var selectedImage: UIImage? {
         didSet{
-            
             imageView.image = selectedImage
         }
     }
