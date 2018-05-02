@@ -10,10 +10,12 @@ import UIKit
 
 class CommentCell: UICollectionViewCell {
     
-    let commentText: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = true
-        return textField
+    let commentText: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.translatesAutoresizingMaskIntoConstraints = true
+        return label
     }()
     
     

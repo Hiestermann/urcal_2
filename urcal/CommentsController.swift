@@ -48,6 +48,10 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
         fetchPostComments()
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 50)
+    }
+    
      init(collectionViewLayout layout: UICollectionViewLayout, postID: String) {
         super.init(collectionViewLayout: layout)
         self.postID = postID
@@ -60,15 +64,21 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
     fileprivate func fetchPostComments() {
         guard let postID = postID else {return}
         Database.database().reference().child("Comments").child(postID).observeSingleEvent(of: .value, with: { (snapshot) in
+
             guard let commentsDictionary = snapshot.value as? [String: Any] else { return }
-            let key = snapshot.key
-            let comment = Comment(commentID: key, dictionary: commentsDictionary)
-            print(comment)
-            self.comments.append(comment)
+            for key in commentsDictionary.keys {
+                let comment = Comment(commentID: key, dictionary: commentsDictionary[key] as! [String : Any])
+                 self.comments.append(comment)
+            }
+            
+            self.collectionView?.reloadData()
+           
         }) { (err) in
             print(err)
         }
     }
+    
+   
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellID", for: indexPath) as! CommentCell
@@ -105,7 +115,16 @@ class CommentsController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width, height: 100)
+        let text = comments[indexPath.row].text
+        let aproximateWidht = view.bounds.width - 100
+        
+        let size = CGSize(width: aproximateWidht, height: 1000)
+        
+        let attributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 15)]
+        
+        let estimatedFrame = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        
+        return CGSize(width: view.bounds.width, height: estimatedFrame.height)
     }
     override var canBecomeFirstResponder: Bool{
         return true
