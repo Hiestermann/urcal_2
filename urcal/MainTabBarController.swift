@@ -15,7 +15,9 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
        
         let index = viewControllers?.index(of: viewController)
         
-        if index == 2{
+        
+        
+        if index == 3{
             
             let layout = UICollectionViewFlowLayout()
             let photoSelectorController = PhotoCreatorController(collectionViewLayout: layout)
@@ -59,7 +61,9 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
         
         let bookmarkNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "bookmark_unselected"), selectedImage: #imageLiteral(resourceName: "bookmark"), rootViewController: BookmarkController(collectionViewLayout: UICollectionViewFlowLayout()))
         
-        let userProfileController = UserPostsView()
+        let allertController = templateNavController(unselectedImage: #imageLiteral(resourceName: "bell-2-32"), selectedImage: #imageLiteral(resourceName: "bell-2-32"))
+        
+        let userProfileController = UserPostsView(collectionViewLayout: UICollectionViewFlowLayout())
         
         let userProfilenNavController = UINavigationController(rootViewController: userProfileController)
        
@@ -69,6 +73,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
         tabBar.tintColor = .black
         
         viewControllers = [userProfilenNavController,
+                           allertController,
                            homeNavController,
                            plusPhotoNavController,
                            bookmarkNavController]

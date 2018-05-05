@@ -34,6 +34,7 @@ class UserSettings: UICollectionViewController, UICollectionViewDelegateFlowLayo
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        collectionView?.backgroundColor = .white
         collectionView?.backgroundColor = UIColor(white: 1, alpha: 0.9)
         
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)

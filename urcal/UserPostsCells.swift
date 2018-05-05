@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserPostsCells: UITableViewCell {
+class UserPostsCells: UICollectionViewCell {
     
     var post: Post?{
         didSet{
@@ -63,9 +63,8 @@ class UserPostsCells: UITableViewCell {
         return button
     }()
     
-
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setUpCells()
     }
     

@@ -30,7 +30,6 @@ class SettingsCellStandart: UICollectionViewCell {
         setUpViews()
     }
     
-    //MARK: -set up views
     fileprivate func setUpViews() {
         
         cellLabel.textColor = .red
