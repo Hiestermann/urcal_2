@@ -58,7 +58,4 @@ class UserPostEdit: UIViewController{
         closeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-    }
-    
 }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol UserPostHeaderDelegate {
+     func didTapEditProfile()
+}
+
 class UserPostHeader: UITableViewHeaderFooterView {
 
     var user: User? {
@@ -21,6 +25,8 @@ class UserPostHeader: UITableViewHeaderFooterView {
             }
         }
     }
+    
+    var delegate: UserPostHeaderDelegate?
     
     let userImage: UIImageView = {
         let image = UIImageView()
@@ -45,7 +51,7 @@ class UserPostHeader: UITableViewHeaderFooterView {
     }()
     
     func handleShowEditeProfile(){
-      NotificationCenter.default.post(name: .showUserEdit, object: nil)
+        delegate?.didTapEditProfile()
     }
     
     override init(reuseIdentifier: String?) {
@@ -67,7 +73,6 @@ class UserPostHeader: UITableViewHeaderFooterView {
     
     
     fileprivate func fetchUserInfos() {
-    
     }
     
     required init?(coder aDecoder: NSCoder) {

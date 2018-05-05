@@ -32,7 +32,6 @@ class UserPostsView: UITableViewController{
         tableView.register(UserPostHeader.self, forHeaderFooterViewReuseIdentifier: headerId)
         
         NotificationCenter.default.addObserver(self, selector: #selector(showUserSettings), name: .showUserEdit, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleRefreshUser), name: .refreshUserPostView, object: nil)
     }
     
     func handleRefreshUser () {
@@ -43,6 +42,7 @@ class UserPostsView: UITableViewController{
    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! UserPostHeader
+        header.delegate = self
         header.user = user
         return header
     }
@@ -129,4 +129,15 @@ class UserPostsView: UITableViewController{
         userPostEdit.post = post
         navigationController?.pushViewController(userPostEdit, animated: true)
     }
+}
+
+extension UserPostsView: UserPostHeaderDelegate {
+    func didTapEditProfile() {
+        print("Hello")
+        let layout = UICollectionViewFlowLayout()
+        let userSettings = UserSettings(collectionViewLayout: layout)
+        self.navigationController?.pushViewController(userSettings, animated: true)
+    }
+    
+    
 }
