@@ -23,7 +23,6 @@ class UserProfileHeader: UICollectionViewCell {
         
     }
     
-    //MARK: -views an buttons
     let profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.layer.cornerRadius = 80/2

@@ -44,7 +44,6 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         
     }
     
-    // setting up header
 
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerId", for: indexPath) as! UserProfileHeader
@@ -53,7 +52,6 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
         return header
     }
     
-    //setting up cells
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          return self.posts.count
@@ -95,7 +93,6 @@ class UserProfileController: UICollectionViewController, UICollectionViewDelegat
                 Database.fetchPostWithId(postId: key, completion: { (post) in
                     self.posts.append(post)
                     self.collectionView?.reloadData()
-
                 })
             })
 

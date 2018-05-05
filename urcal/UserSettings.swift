@@ -85,7 +85,6 @@ class UserSettings: UICollectionViewController, UICollectionViewDelegateFlowLayo
         if checkForUpload == true {
             //NOTE: -reload UserPostsView, Bookmarks and HomeViewController
             NotificationCenter.default.post(name: .refreshHomeController, object: nil)
-            NotificationCenter.default.post(name: .refreshUserPostView, object: nil)
             self.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
@@ -130,7 +129,6 @@ class UserSettings: UICollectionViewController, UICollectionViewDelegateFlowLayo
         })
     }
     
-    // activated by changeProfilePicture form UserEditSectionHeaderView
     func showPhotoSelector() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
@@ -142,7 +140,6 @@ class UserSettings: UICollectionViewController, UICollectionViewDelegateFlowLayo
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         
-        // the picked image will be send to the UserEditeHeaderSectionView
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             profilImage = editedImage
             NotificationCenter.default.post(name: .setUserImage, object: editedImage)
@@ -160,14 +157,11 @@ class UserSettings: UICollectionViewController, UICollectionViewDelegateFlowLayo
     }
     
     
-    // setting up cells
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // Log Out Button
         if indexPath.section == 1 {
             handleLogOut()
         }
-        // Delate Account Button
         if indexPath.section == 2 {
             handleDeleteUser()
         }
@@ -233,18 +227,15 @@ class UserSettings: UICollectionViewController, UICollectionViewDelegateFlowLayo
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         
-        //Username Cell
         if indexPath.section == 0{
             let section0Cell = collectionView.dequeueReusableCell(withReuseIdentifier: section0CellId, for: indexPath) as! UsernameSettingsCell
             section0Cell.usernameTextField.text = user?.username
             return section0Cell
         
-            //Logout Cell
         } else if indexPath.section == 1{
             let section1Cell = collectionView.dequeueReusableCell(withReuseIdentifier: section1CellId, for: indexPath) as! Section1ButtonCell
             return section1Cell
        
-        // Delate Account Cell
         } else if indexPath.section == 2 {
             let section2Cell = collectionView.dequeueReusableCell(withReuseIdentifier: section2CellId, for: indexPath) as! Section2ButtonCell
             return section2Cell

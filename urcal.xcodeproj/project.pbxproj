@@ -29,7 +29,6 @@
 		3920E8731EBE717500C2A80E /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920E8721EBE717500C2A80E /* LoginController.swift */; };
 		3923008F1ECE338F00F952F2 /* PopUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3923008E1ECE338F00F952F2 /* PopUpController.swift */; };
 		3932D6D51EE3618D006292F4 /* ExtensionsUserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3932D6D41EE3618D006292F4 /* ExtensionsUserSettings.swift */; };
-		3932D6D71EE53EF9006292F4 /* ExtensionUserPostAndProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3932D6D61EE53EF9006292F4 /* ExtensionUserPostAndProfile.swift */; };
 		393425FA1EDEDD8300C98BF2 /* UserPostsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393425F91EDEDD8300C98BF2 /* UserPostsHeader.swift */; };
 		393425FC1EE0B5C600C98BF2 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393425FB1EE0B5C600C98BF2 /* UserSettings.swift */; };
 		393426001EE2906B00C98BF2 /* UserEditSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 393425FF1EE2906B00C98BF2 /* UserEditSectionHeaderView.swift */; };
@@ -99,7 +98,6 @@
 		3923008B1ECE10B000F952F2 /* New York City - 1044.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "New York City - 1044.mp4"; sourceTree = "<group>"; };
 		3923008E1ECE338F00F952F2 /* PopUpController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopUpController.swift; sourceTree = "<group>"; };
 		3932D6D41EE3618D006292F4 /* ExtensionsUserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionsUserSettings.swift; sourceTree = "<group>"; };
-		3932D6D61EE53EF9006292F4 /* ExtensionUserPostAndProfile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionUserPostAndProfile.swift; sourceTree = "<group>"; };
 		393425F91EDEDD8300C98BF2 /* UserPostsHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPostsHeader.swift; sourceTree = "<group>"; };
 		393425FB1EE0B5C600C98BF2 /* UserSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		393425FF1EE2906B00C98BF2 /* UserEditSectionHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserEditSectionHeaderView.swift; sourceTree = "<group>"; };
@@ -175,7 +173,6 @@
 				3915450F1ED7061900C420FA /* UserPostsCells.swift */,
 				393425F91EDEDD8300C98BF2 /* UserPostsHeader.swift */,
 				391545111ED79B0C00C420FA /* UserPostEdit.swift */,
-				3932D6D61EE53EF9006292F4 /* ExtensionUserPostAndProfile.swift */,
 				393426041EE2C0EC00C98BF2 /* UserSettings */,
 			);
 			name = "UserPost&Profile";
@@ -579,7 +576,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				39475EE11EC6297500B80816 /* HomeControllerViewCells.swift in Sources */,
-				3932D6D71EE53EF9006292F4 /* ExtensionUserPostAndProfile.swift in Sources */,
 				39CA1FEA1EC3306000B6396D /* Structs.swift in Sources */,
 				39CA1FE81EC24CA400B6396D /* SharePhotoController.swift in Sources */,
 				3934260B1EE2F1F400C98BF2 /* Section2ButtonCell.swift in Sources */,
