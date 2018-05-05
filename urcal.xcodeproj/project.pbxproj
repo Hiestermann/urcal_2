@@ -224,7 +224,7 @@
 				393425F81EDD56B100C98BF2 /* BasicCollectionView&Cells */,
 				39ECBADA1EC620CC005C57FA /* Home */,
 				39CA1FE21EC1DA8E00B6396D /* AddPhoto */,
-				3920E86F1EB9A4E600C2A80E /* UserProfile */,
+				3920E86F1EB9A4E600C2A80E /* DebrecadedUserProfile */,
 				3915450C1ED6FF0400C420FA /* UserPost&Profile */,
 				39EAF916208492BA0006DB87 /* Comments */,
 				3920E8741EBE736100C2A80E /* Login */,
@@ -266,14 +266,14 @@
 			name = Utils;
 			sourceTree = "<group>";
 		};
-		3920E86F1EB9A4E600C2A80E /* UserProfile */ = {
+		3920E86F1EB9A4E600C2A80E /* DebrecadedUserProfile */ = {
 			isa = PBXGroup;
 			children = (
 				3920E86B1EB8789000C2A80E /* UserProfileController.swift */,
 				3920E8701EB9A50700C2A80E /* UserProfileHeader.swift */,
 				39CA20221EC5A4B100B6396D /* UserProfileCells.swift */,
 			);
-			name = UserProfile;
+			name = DebrecadedUserProfile;
 			sourceTree = "<group>";
 		};
 		3920E8741EBE736100C2A80E /* Login */ = {
