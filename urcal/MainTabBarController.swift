@@ -55,20 +55,20 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
 
     func setupViewController() {
         
-        let homeNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "pin_unselected"), selectedImage: #imageLiteral(resourceName: "pin_selected"), rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
+        let homeNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "navigator"), selectedImage: #imageLiteral(resourceName: "navigator"), rootViewController: HomeController(collectionViewLayout: UICollectionViewFlowLayout()))
         
-        let plusPhotoNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"))
+        let plusPhotoNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "camera"), selectedImage: #imageLiteral(resourceName: "camera"))
         
-        let bookmarkNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "bookmark_unselected"), selectedImage: #imageLiteral(resourceName: "bookmark"), rootViewController: BookmarkController(collectionViewLayout: UICollectionViewFlowLayout()))
+        let bookmarkNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "pin-1"), selectedImage: #imageLiteral(resourceName: "pin-1"), rootViewController: BookmarkController(collectionViewLayout: UICollectionViewFlowLayout()))
         
-        let allertController = templateNavController(unselectedImage: #imageLiteral(resourceName: "bell-2-32"), selectedImage: #imageLiteral(resourceName: "bell-2-32"))
+        let allertController = templateNavController(unselectedImage: #imageLiteral(resourceName: "bell"), selectedImage:#imageLiteral(resourceName: "bell"))
         
         let userProfileController = UserPostsView(collectionViewLayout: UICollectionViewFlowLayout())
         
         let userProfilenNavController = UINavigationController(rootViewController: userProfileController)
        
-        userProfilenNavController.tabBarItem.image = #imageLiteral(resourceName: "profile_unselected")
-        userProfilenNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile_selected")
+        userProfilenNavController.tabBarItem.image = #imageLiteral(resourceName: "profile")
+        userProfilenNavController.tabBarItem.selectedImage = #imageLiteral(resourceName: "profile") 
         
         tabBar.tintColor = .black
         

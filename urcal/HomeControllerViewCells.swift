@@ -31,7 +31,7 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
             if bookmarked == false {
                 bookmarkButton.removeTarget(self, action: #selector(handleDeBookmark), for: .touchUpInside)
                 bookmarkButton.addTarget(self, action: #selector(handleBookmark), for: .touchUpInside)
-                bookmarkButton.setImage(#imageLiteral(resourceName: "bookmark_unselected"), for: .normal)
+                bookmarkButton.setImage(#imageLiteral(resourceName: "pin-1"), for: .normal)
             } else if bookmarked == true {
                 bookmarkButton.removeTarget(self, action: #selector(handleBookmark), for: .touchUpInside)
                 bookmarkButton.addTarget(self, action: #selector(handleDeBookmark), for: .touchUpInside)
@@ -112,14 +112,7 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     
     let distancIcon: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "pin").withRenderingMode(.alwaysOriginal), for: .normal)
-        button.tintColor = UIColor(white: 0, alpha: 0.1)
-        return button
-    }()
-    
-    let shareButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "sharethis").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "pin-1").withRenderingMode(.alwaysOriginal), for: .normal)
         button.tintColor = UIColor(white: 0, alpha: 0.1)
         return button
     }()
@@ -150,13 +143,6 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         label.text = "0"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont.boldSystemFont(ofSize: 12)
-        return label
-    }()
-    
-    let shareLabel: UILabel = {
-        let label = UILabel()
-        label.text = "0"
-        label.textAlignment = NSTextAlignment.center
         return label
     }()
     
@@ -206,21 +192,18 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     }
     
     fileprivate func settingUpViews(){
-        
-    addSubview(topCellBackground)
-    topCellBackground.anchor(top: topAnchor , left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 60)
-        
+    
     topCellBackground.addSubview(postUserImage)
     postUserImage.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 50, height: 50)
     
     addSubview(imageView)
-    imageView.anchor(top: topCellBackground.bottomAnchor, left: leftAnchor, bottom: nil , right: nil , paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: frame.width/2 - 2  , height: frame.width/2 - 2 )
+    imageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil , right: nil , paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: frame.width/2 - 2  , height: frame.width/2 - 2 )
     
     addSubview(geoImageView)
-    geoImageView.anchor(top: topCellBackground.bottomAnchor, left: imageView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: -2, width: frame.width / 2 - 2 , height: frame.width / 2 - 2)
+    geoImageView.anchor(top: topAnchor, left: imageView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: -2, width: frame.width / 2 - 2 , height: frame.width / 2 - 2)
         
     topCellBackground.addSubview(captionLabel)
-    captionLabel.anchor(top: topCellBackground.topAnchor, left: postUserImage.rightAnchor, bottom: topCellBackground.bottomAnchor , right: topCellBackground.rightAnchor, paddingTop: 2, paddingLeft: 5, paddingBottom: 0, paddingRight: 2, width: 0, height: 0)
+    captionLabel.anchor(top: topAnchor, left: postUserImage.rightAnchor, bottom: topCellBackground.bottomAnchor , right: topCellBackground.rightAnchor, paddingTop: 2, paddingLeft: 5, paddingBottom: 0, paddingRight: 2, width: 0, height: 0)
 
     addSubview(mapButton)
     mapButton.anchor(top: nil, left: imageView.rightAnchor, bottom: imageView.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: frame.width * (1/2) , height: frame.width * (1/2))
@@ -237,13 +220,13 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         addSubview(bottomCellBackground)
         bottomCellBackground.anchor(top: imageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        let stackView = UIStackView(arrangedSubviews: [distancIcon, commentButton, shareButton, arrowLikeButton, bookmarkButton])
+        let stackView = UIStackView(arrangedSubviews: [distancIcon, commentButton, arrowLikeButton, bookmarkButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         addSubview(stackView)
         stackView.anchor(top: imageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 4, paddingRight: -4, width: 0, height: 37)
         
-        let stackViewLabels = UIStackView(arrangedSubviews: [distanceLabel,commentLabel, shareLabel, likesLabel, bookmarkLabel])
+        let stackViewLabels = UIStackView(arrangedSubviews: [distanceLabel,commentLabel, likesLabel, bookmarkLabel])
         stackViewLabels.axis = .horizontal
         stackViewLabels.distribution = .fillEqually
         addSubview(stackViewLabels)

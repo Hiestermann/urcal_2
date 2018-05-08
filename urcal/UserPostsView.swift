@@ -28,7 +28,7 @@ class UserPostsView: UICollectionViewController, UICollectionViewDelegateFlowLay
         fetchUser()
         fetchUserPosts()
         
-        collectionView?.register(UserPostsCells.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.register(HomeControllerViewCell.self, forCellWithReuseIdentifier: cellId)
         collectionView?.register(UserPostHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId)
         collectionView?.backgroundColor = .white
         NotificationCenter.default.addObserver(self, selector: #selector(showUserSettings), name: .showUserEdit, object: nil)
@@ -58,7 +58,7 @@ class UserPostsView: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! UserPostsCells
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeControllerViewCell
         cell.backgroundColor = .blue
         return cell
     }
