@@ -31,7 +31,7 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
             if bookmarked == false {
                 bookmarkButton.removeTarget(self, action: #selector(handleDeBookmark), for: .touchUpInside)
                 bookmarkButton.addTarget(self, action: #selector(handleBookmark), for: .touchUpInside)
-                bookmarkButton.setImage(#imageLiteral(resourceName: "pin-1"), for: .normal)
+                bookmarkButton.setImage(#imageLiteral(resourceName: "pin_32"), for: .normal)
             } else if bookmarked == true {
                 bookmarkButton.removeTarget(self, action: #selector(handleBookmark), for: .touchUpInside)
                 bookmarkButton.addTarget(self, action: #selector(handleDeBookmark), for: .touchUpInside)
@@ -43,10 +43,7 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     var post :UserPost?{
         didSet{
             
-            if post?.user.profileImageUrl != "" {
-                guard let profileImageUrl = post?.user.profileImageUrl else { return }
-                postUserImage.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
-            }
+
             guard let imageUrl = post?.post.imageUrl else { return }
             guard let geoImageUrl = post?.post.geoImageUrl else { return }
             
@@ -54,7 +51,7 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
             postUsername.text = post?.user.username
             geoImageView.loadImageUsingCacheWithUrlString(urlString: geoImageUrl)
             
-            setupAttributeCaption()
+            //setupAttributeCaption()
             setupDistance()
         }
     }
@@ -75,18 +72,12 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     var postUserImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
-        image.layer.cornerRadius = 50/2
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.layer.cornerRadius = 80/2
         image.clipsToBounds = true
-        image.backgroundColor = .blue
+        image.backgroundColor = .green
         image.image = UIImage(named: "profil_dummy")
         return image
-    }()
-    
-    let topCellBackground: UIView = {
-        let view = UIView()
-        view.clipsToBounds = true
-        view.backgroundColor = UIColor(white: 0, alpha: 0)
-        return view
     }()
     
     let bottomCellBackground: UIView = {
@@ -104,22 +95,22 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         return iv
     }()
     
-    var captionLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
+    var captionLabel: UITextView = {
+        let label = UITextView()
+        //label.numberOfLines = 0
         return label
     }()
     
     let distancIcon: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "pin-1").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "distance").withRenderingMode(.alwaysOriginal), for: .normal)
         button.tintColor = UIColor(white: 0, alpha: 0.1)
         return button
     }()
     
-    lazy var arrowLikeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "arrow").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "like_unselected").withRenderingMode(.alwaysOriginal), for: .normal)
         button.addTarget(self, action: #selector(handleLike), for: .touchUpInside)
         return button
     }()
@@ -140,7 +131,7 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     
     let distanceLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = "100"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont.boldSystemFont(ofSize: 12)
         return label
@@ -148,15 +139,17 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     
     let commentLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = "1000"
         label.textAlignment = NSTextAlignment.center
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         return label
     }()
     
     let likesLabel: UILabel = {
         let label = UILabel()
-        label.text = "0"
+        label.text = "1.1k"
         label.textAlignment = NSTextAlignment.center
+        label.font = UIFont.boldSystemFont(ofSize: 12)
         return label
     }()
     
@@ -174,15 +167,9 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         return button
     }()
     
-    let seperatorLine: UIView = {
-        let view = UIView()
-        view.backgroundColor = .lightGray
-        return view
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
-
+         layoutIfNeeded()
         settingUpViews()
     }
 
@@ -193,24 +180,20 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     
     fileprivate func settingUpViews(){
     
-    topCellBackground.addSubview(postUserImage)
-    postUserImage.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 5, paddingLeft: 5, paddingBottom: 5, paddingRight: 0, width: 50, height: 50)
+    addSubview(geoImageView)
+    geoImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: -2, width: frame.width / 2 - 2 , height: frame.width / 2 - 2)
     
     addSubview(imageView)
-    imageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil , right: nil , paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: frame.width/2 - 2  , height: frame.width/2 - 2 )
-    
-    addSubview(geoImageView)
-    geoImageView.anchor(top: topAnchor, left: imageView.rightAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: -2, width: frame.width / 2 - 2 , height: frame.width / 2 - 2)
-        
-    topCellBackground.addSubview(captionLabel)
-    captionLabel.anchor(top: topAnchor, left: postUserImage.rightAnchor, bottom: topCellBackground.bottomAnchor , right: topCellBackground.rightAnchor, paddingTop: 2, paddingLeft: 5, paddingBottom: 0, paddingRight: 2, width: 0, height: 0)
+    imageView.anchor(top: topAnchor, left: nil, bottom: nil , right: rightAnchor , paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: frame.width/2 - 2  , height: frame.width/2 - 2 )
 
     addSubview(mapButton)
     mapButton.anchor(top: nil, left: imageView.rightAnchor, bottom: imageView.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: frame.width * (1/2) , height: frame.width * (1/2))
+    addSubview(postUserImage)
+    postUserImage.centerYAnchor.constraint(equalTo: geoImageView.bottomAnchor, constant: 10).isActive = true
+    postUserImage.leftAnchor.constraint(equalTo: geoImageView.leftAnchor, constant: 10).isActive = true
+    postUserImage.heightAnchor.constraint(equalToConstant: 80).isActive = true
+    postUserImage.widthAnchor.constraint(equalToConstant: 80).isActive = true
     
-    addSubview(seperatorLine)
-        seperatorLine.anchor(top: nil, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 1)
-        
     setupButtons()
     
     }
@@ -220,18 +203,29 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         addSubview(bottomCellBackground)
         bottomCellBackground.anchor(top: imageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        let stackView = UIStackView(arrangedSubviews: [distancIcon, commentButton, arrowLikeButton, bookmarkButton])
+        let stackView = UIStackView(arrangedSubviews: [distancIcon, commentButton, likeButton, bookmarkButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         addSubview(stackView)
-        stackView.anchor(top: imageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 4, paddingRight: -4, width: 0, height: 37)
+        stackView.anchor(top: imageView.bottomAnchor, left: imageView.leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 4, paddingRight: -4, width: 0, height: 37)
         
         let stackViewLabels = UIStackView(arrangedSubviews: [distanceLabel,commentLabel, likesLabel, bookmarkLabel])
         stackViewLabels.axis = .horizontal
         stackViewLabels.distribution = .fillEqually
         addSubview(stackViewLabels)
-        stackViewLabels.anchor(top: stackView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 2, paddingLeft: 4, paddingBottom: -3, paddingRight: -4, width: 0, height: 0)
+        stackViewLabels.anchor(top: stackView.bottomAnchor, left: imageView.leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 2, paddingLeft: 4, paddingBottom: -3, paddingRight: -4, width: 0, height: 0)
         
+        
+       
+       
+        let stackViewFrame = UIBezierPath(rect: stackView.frame)
+        let stackViewLabelsFrame = UIBezierPath(rect: stackViewLabels.frame)
+        print(stackViewLabels.frame.height)
+        captionLabel.textContainer.exclusionPaths = [stackViewFrame, stackViewLabelsFrame]
+        captionLabel.backgroundColor = UIColor.init(white: 0, alpha: 0)
+        captionLabel.text = "asdfj aoisdf oiasdiofhj aopsdhfiu ahsdof aosidijf poauhdf oahsdüif aoidjfpoawjdfüi ashdopifj aspdjf asdfop asodfh oashdf oasdf asodhf asjdfo asoidfjoai sdjfüo iasdüoif aüoisdjf oaisdjfüi asjdüoifij asüoidjf üoaisdjf oiasjd füoiasd falisdhf asd foashdf "
+        addSubview(captionLabel)
+        captionLabel.anchor(top: imageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
     
     @objc fileprivate func handleComment() {
@@ -335,11 +329,13 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         } else {
             distanceLabel.text = "\(distance) m"
         }
+        distanceLabel.text = "350 m"
     }
     
     func handleLike() {
         likes += 1
         likesLabel.text = String(likes)
+        likeButton.imageView?.image = UIImage(named: "like")
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -59,7 +59,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
         
         let plusPhotoNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "camera"), selectedImage: #imageLiteral(resourceName: "camera"))
         
-        let bookmarkNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "pin-1"), selectedImage: #imageLiteral(resourceName: "pin-1"), rootViewController: BookmarkController(collectionViewLayout: UICollectionViewFlowLayout()))
+        let bookmarkNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "pin_32"), selectedImage: #imageLiteral(resourceName: "pin_32"), rootViewController: BookmarkController(collectionViewLayout: UICollectionViewFlowLayout()))
         
         let allertController = templateNavController(unselectedImage: #imageLiteral(resourceName: "bell"), selectedImage:#imageLiteral(resourceName: "bell"))
         
