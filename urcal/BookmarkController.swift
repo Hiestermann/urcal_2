@@ -22,11 +22,10 @@ class BookmarkController: UICollectionViewController, UICollectionViewDelegateFl
         navigationItem.title = "Bookmarks"
         collectionView?.register(HomeControllerViewCell.self, forCellWithReuseIdentifier: cellId)
         getBookmarks()
-        NotificationCenter.default.addObserver(self, selector: #selector(delateCell), name: .delateCell, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteCell), name: .deleteCell, object: nil)
     }
     
-    // delate Cell by notification from HomeCollectionViewCell function: handleDeBookmark()
-    func delateCell(notification: Notification) {
+    func deleteCell(notification: Notification) {
         let indexPath = notification.object as! NSIndexPath
         post.remove(at: indexPath.item)
         self.collectionView?.deleteItems(at: [indexPath as IndexPath])
@@ -36,7 +35,6 @@ class BookmarkController: UICollectionViewController, UICollectionViewDelegateFl
         self.collectionView?.reloadItems(at: i!)
     }
     
-    // setting up cells
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return post.count
     }

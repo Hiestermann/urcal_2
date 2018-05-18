@@ -12,7 +12,6 @@ class RangeSettingsController: UIViewController {
 
     let defaults = UserDefaults.standard
     
-    //MARK: -setting up views and buttons
     let groundView: UIView = {
        let gv = UIView()
         gv.backgroundColor = .white
@@ -21,7 +20,7 @@ class RangeSettingsController: UIViewController {
     
     let rangeSlider: UISlider = {
         let slider = UISlider()
-        slider.maximumValue = 200
+        slider.maximumValue = 30
         slider.minimumValue = 1
         slider.addTarget(self, action: #selector(handleRangeLabel), for: .valueChanged)
         return slider
@@ -47,7 +46,6 @@ class RangeSettingsController: UIViewController {
     let lowerView: UIView = {
         let lv = UIView()
         
-        //NOTE: adding tap gesture recognizer to dismiss the view by tapping on the blank field
         let tap = UITapGestureRecognizer(target: self, action: #selector(dismissView(_:)))
         lv.addGestureRecognizer(tap)
         
@@ -63,7 +61,6 @@ class RangeSettingsController: UIViewController {
         
     }
     
-    //MARK: -setup Views
     fileprivate func setupView() {
         view.addSubview(groundView)
         groundView.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 100)
@@ -73,10 +70,9 @@ class RangeSettingsController: UIViewController {
         rangeSlider.centerYAnchor.constraint(equalTo: groundView.centerYAnchor).isActive = true
         
         view.addSubview(rangeLabel)
-        rangeLabel.anchor(top: groundView.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 40, height: 20)
+        rangeLabel.anchor(top: groundView.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 20, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 100, height: 20)
         rangeLabel.centerXAnchor.constraint(equalTo: groundView.centerXAnchor).isActive = true
         
-        //NOTE: -get the current range value
         let range = Float(defaults.integer(forKey: "range"))
         let currentRange = Int(range)
         rangeSlider.value = Float(currentRange)
@@ -86,30 +82,25 @@ class RangeSettingsController: UIViewController {
         saveButton.anchor(top: groundView.bottomAnchor, left: groundView.leftAnchor, bottom: nil, right: groundView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
     }
     
-    //MARK: -save Range
     func saveRange() {
         let range = Int(rangeSlider.value)
         let defaults = UserDefaults.standard
         defaults.set(range, forKey: "range")
-        print(defaults.integer(forKey: "range"))
         
-        //MARK: -reload and dismiss View
         NotificationCenter.default.post(name: .refreshHomeController , object: nil)
         self.dismiss(animated: true, completion: nil)
     }
     
-    //MARK: -update rangeLabel
     func handleRangeLabel(sender: UISlider) {
         
         let value = Int(sender.value)
-        rangeLabel.text = String(value)
+        rangeLabel.text = "\(value) km"
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    //MARK: -dismiss view by tap
     func dismissView (_ sender: UITapGestureRecognizer) {
         self.dismiss(animated: true, completion: nil)
     }

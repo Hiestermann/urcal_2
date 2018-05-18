@@ -272,16 +272,16 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
                 self.bookmarked = false
 
                 if self.indexPath != nil{
-                    self.delateBookmark()
+                    self.deleteBookmark()
                 }
             })
 
         }
     }
     
-    fileprivate func delateBookmark(){
+    fileprivate func deleteBookmark(){
         let myDict = self.indexPath
-        NotificationCenter.default.post(name: .delateCell, object: myDict)
+        NotificationCenter.default.post(name: .deleteCell, object: myDict)
         NotificationCenter.default.post(name: .refreshHomeController, object: nil)
     }
     

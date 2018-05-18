@@ -212,11 +212,11 @@
 		3920E8331EB7443500C2A80E /* urcal */ = {
 			isa = PBXGroup;
 			children = (
-				39EAF912208233130006DB87 /* Components */,
 				391545151ED8832400C420FA /* SwiftGif.swift */,
 				391545171ED8859300C420FA /* bg.gif */,
 				3920E8341EB7443500C2A80E /* AppDelegate.swift */,
 				3920E8691EB8733C00C2A80E /* MainTabBarController.swift */,
+				39EAF912208233130006DB87 /* Components */,
 				3908898A1ED49EB300B3B8D0 /* Bookmarks */,
 				393425F81EDD56B100C98BF2 /* BasicCollectionView&Cells */,
 				39ECBADA1EC620CC005C57FA /* Home */,

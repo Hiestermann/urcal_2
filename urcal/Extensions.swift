@@ -161,7 +161,7 @@ extension Date {
 extension Notification.Name {
     static let setUpMap = Notification.Name("setupMap")
     static let refreshHomeController =  Notification.Name("refreshProfileController")
-    static let delateCell = Notification.Name("delateCell")
+    static let deleteCell = Notification.Name("deleteCell")
     static let refreshResults = Notification.Name("refreshResults")
     static let createAnnotation = Notification.Name("createAnnotation")
     static let sendAnnoitation = Notification.Name("sendAnnoitation")
