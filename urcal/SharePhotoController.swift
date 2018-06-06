@@ -100,7 +100,6 @@ class SharePhotoController: UIViewController, CLLocationManagerDelegate {
 
         let region: MKCoordinateRegion = MKCoordinateRegionMake(location, span)
         map.setRegion(region, animated: true)
-        map.addAnnotations(annoitation!)
         
         self.latitude = location.latitude
         self.longitude = location.longitude
@@ -151,7 +150,6 @@ class SharePhotoController: UIViewController, CLLocationManagerDelegate {
         })
         
     }
-
     
     override var prefersStatusBarHidden: Bool{
         return true
@@ -207,7 +205,6 @@ class SharePhotoController: UIViewController, CLLocationManagerDelegate {
                 
                 self.saveToDataBaseWithImageUrl(imageUrl: imageUrl, imageName: imageName, geoImageURL: geoImageURL, geoImageName: geoImageName)
             })
-            
         }
     }
 

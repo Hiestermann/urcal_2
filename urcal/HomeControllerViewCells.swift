@@ -43,18 +43,39 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     var post :UserPost?{
         didSet{
             
-
             guard let imageUrl = post?.post.imageUrl else { return }
             guard let geoImageUrl = post?.post.geoImageUrl else { return }
             
             imageView.loadImageUsingCacheWithUrlString(urlString: imageUrl)
             postUsername.text = post?.user.username
             geoImageView.loadImageUsingCacheWithUrlString(urlString: geoImageUrl)
+            guard let profileImageUrl = post?.user.profileImageUrl else { return }
             
+            if profileImageUrl.isEmpty {
+                print(postUserImage.frame.height)
+                postUserImageHeight?.constraint(equalToConstant: 0).isActive = true
+                usernameBackgroundViewHeight?.constraint(equalToConstant: 0).isActive = true
+            } else {
+                print(profileImageUrl)
+                postUserImageHeight?.constraint(equalToConstant: 80).isActive = true
+                postUserImage.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
+            }
+            
+            guard let username = post?.user.username else { return }
+            postUsername.text = username
+            
+            
+            
+            captionLabel.text = post?.post.captionText
             //setupAttributeCaption()
             setupDistance()
         }
     }
+    
+    
+    var stackView = UIStackView()
+    
+    var stackViewLabels = UIStackView()
      
     var imageView: UIImageView = {
         let iv = UIImageView()
@@ -69,13 +90,20 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         return label
     }()
     
+    let userNameBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .red
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     var postUserImage: UIImageView = {
         let image = UIImageView()
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 80/2
         image.clipsToBounds = true
-        image.backgroundColor = .green
+        image.backgroundColor = .white
         image.image = UIImage(named: "profil_dummy")
         return image
     }()
@@ -97,7 +125,7 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     
     var captionLabel: UITextView = {
         let label = UITextView()
-        //label.numberOfLines = 0
+        label.backgroundColor = UIColor.init(white: 0, alpha: 0)
         return label
     }()
     
@@ -139,7 +167,7 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     
     let commentLabel: UILabel = {
         let label = UILabel()
-        label.text = "1000"
+        label.text = "100 k"
         label.textAlignment = NSTextAlignment.center
         label.font = UIFont.boldSystemFont(ofSize: 12)
         return label
@@ -167,13 +195,16 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         return button
     }()
     
+    var postUserImageHeight: NSLayoutDimension?
+    var usernameBackgroundViewHeight: NSLayoutDimension?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-         layoutIfNeeded()
         settingUpViews()
     }
 
     override func prepareForReuse() {
+        super.prepareForReuse()
         self.imageView.image = nil
         self.geoImageView.image = nil
     }
@@ -181,21 +212,34 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
     fileprivate func settingUpViews(){
     
     addSubview(geoImageView)
-    geoImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: -2, width: frame.width / 2 - 2 , height: frame.width / 2 - 2)
-    
+    geoImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: -2, width: frame.width/2 - 2 , height: frame.width / 2 - 2)
+        
+
     addSubview(imageView)
     imageView.anchor(top: topAnchor, left: nil, bottom: nil , right: rightAnchor , paddingTop: 0, paddingLeft: 2, paddingBottom: 0, paddingRight: 0, width: frame.width/2 - 2  , height: frame.width/2 - 2 )
-
-    addSubview(mapButton)
-    mapButton.anchor(top: nil, left: imageView.rightAnchor, bottom: imageView.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: frame.width * (1/2) , height: frame.width * (1/2))
+//
+//    addSubview(mapButton)
+//    mapButton.anchor(top: nil, left: imageView.rightAnchor, bottom: imageView.bottomAnchor, right: nil, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: frame.width * (1/2) , height: frame.width * (1/2))
+    
+    addSubview(userNameBackgroundView)
+    userNameBackgroundView.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+    userNameBackgroundView.rightAnchor.constraint(equalTo: geoImageView.rightAnchor) .isActive = true
+    userNameBackgroundView.topAnchor.constraint(equalTo: geoImageView.bottomAnchor).isActive = true
+    usernameBackgroundViewHeight = userNameBackgroundView.heightAnchor
+    usernameBackgroundViewHeight?.constraint(equalToConstant: 57).isActive = true
+        
+    addSubview(captionLabel)
+    captionLabel.anchor(top: userNameBackgroundView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 100)
+        
+        
     addSubview(postUserImage)
-    postUserImage.centerYAnchor.constraint(equalTo: geoImageView.bottomAnchor, constant: 10).isActive = true
-    postUserImage.leftAnchor.constraint(equalTo: geoImageView.leftAnchor, constant: 10).isActive = true
-    postUserImage.heightAnchor.constraint(equalToConstant: 80).isActive = true
+    postUserImageHeight = postUserImage.heightAnchor
+
+    postUserImage.centerYAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0).isActive = true
+    postUserImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+    
     postUserImage.widthAnchor.constraint(equalToConstant: 80).isActive = true
-    
     setupButtons()
-    
     }
     
     fileprivate func setupButtons() {
@@ -203,35 +247,41 @@ class HomeControllerViewCell: UICollectionViewCell, CLLocationManagerDelegate{
         addSubview(bottomCellBackground)
         bottomCellBackground.anchor(top: imageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         
-        let stackView = UIStackView(arrangedSubviews: [distancIcon, commentButton, likeButton, bookmarkButton])
+        stackView = UIStackView(arrangedSubviews: [distancIcon, commentButton, likeButton, bookmarkButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         addSubview(stackView)
         stackView.anchor(top: imageView.bottomAnchor, left: imageView.leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 4, paddingRight: -4, width: 0, height: 37)
         
-        let stackViewLabels = UIStackView(arrangedSubviews: [distanceLabel,commentLabel, likesLabel, bookmarkLabel])
+        stackViewLabels = UIStackView(arrangedSubviews: [distanceLabel,commentLabel, likesLabel, bookmarkLabel])
         stackViewLabels.axis = .horizontal
         stackViewLabels.distribution = .fillEqually
+        
         addSubview(stackViewLabels)
-        stackViewLabels.anchor(top: stackView.bottomAnchor, left: imageView.leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 2, paddingLeft: 4, paddingBottom: -3, paddingRight: -4, width: 0, height: 0)
+        stackViewLabels.anchor(top: stackView.bottomAnchor, left: imageView.leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 2, paddingLeft: 4, paddingBottom: -3, paddingRight: -4, width: 0, height: 20)
         
-        
-       
-       
-        let stackViewFrame = UIBezierPath(rect: stackView.frame)
-        let stackViewLabelsFrame = UIBezierPath(rect: stackViewLabels.frame)
-        print(stackViewLabels.frame.height)
-        captionLabel.textContainer.exclusionPaths = [stackViewFrame, stackViewLabelsFrame]
-        captionLabel.backgroundColor = UIColor.init(white: 0, alpha: 0)
-        captionLabel.text = "asdfj aoisdf oiasdiofhj aopsdhfiu ahsdof aosidijf poauhdf oahsdüif aoidjfpoawjdfüi ashdopifj aspdjf asdfop asodfh oashdf oasdf asodhf asjdfo asoidfjoai sdjfüo iasdüoif aüoisdjf oaisdjfüi asjdüoifij asüoidjf üoaisdjf oiasjd füoiasd falisdhf asd foashdf "
-        addSubview(captionLabel)
-        captionLabel.anchor(top: imageView.bottomAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
     
     @objc fileprivate func handleComment() {
         guard let postID = post?.post.postId else { return }
         delegate?.didTapComment(postID: postID)
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        super.updateConstraintsIfNeeded()
+        // to reduce the space between captionLabel and p
+        let size = CGRect(x: stackView.frame.origin.x + 4 , y: stackView.frame.origin.y, width: stackView.frame.width  , height: stackView.frame.height + 2)
+        
+        let stackViewFrame = UIBezierPath(rect: size)
+        let geoImageFrame = UIBezierPath(rect: geoImageView.frame)
+        let imageViewFrame = UIBezierPath(rect: imageView.frame)
+        captionLabel.textContainer.exclusionPaths = [stackViewFrame,
+                                                     geoImageFrame,
+                                                     imageViewFrame,
+                                                     stackViewFrame]
+    }
+
     
     func handleBookmark(){
         

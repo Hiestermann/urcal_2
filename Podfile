@@ -12,5 +12,7 @@ pod ’Firebase/Auth’
 pod ’Firebase/Database’
 pod ’Firebase/Storage’
 pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+pod 'FlexLayout'
+pod 'PinLayout'
 
 end

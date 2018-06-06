@@ -38,7 +38,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
         
         self.delegate = self
        if Auth.auth().currentUser == nil {
-        
+        tabBar.tintColor = .red
         DispatchQueue.main.async {
             let loginController = LoginController()
             let navController = UINavigationController(rootViewController: loginController)
@@ -61,7 +61,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
         
         let bookmarkNavController = templateNavController(unselectedImage: #imageLiteral(resourceName: "pin_32"), selectedImage: #imageLiteral(resourceName: "pin_32"), rootViewController: BookmarkController(collectionViewLayout: UICollectionViewFlowLayout()))
         
-        let allertController = templateNavController(unselectedImage: #imageLiteral(resourceName: "bell"), selectedImage:#imageLiteral(resourceName: "bell"))
+        let notificationCenterController = templateNavController(unselectedImage: #imageLiteral(resourceName: "bell"), selectedImage: #imageLiteral(resourceName: "bell"), rootViewController: NotificationCenterViewController())
         
         let userProfileController = UserPostsView(collectionViewLayout: UICollectionViewFlowLayout())
         
@@ -73,7 +73,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
         tabBar.tintColor = .black
         
         viewControllers = [userProfilenNavController,
-                           allertController,
+                           notificationCenterController,
                            homeNavController,
                            plusPhotoNavController,
                            bookmarkNavController]
@@ -95,7 +95,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate{
         
         navController.tabBarItem.image = unselectedImage
         navController.tabBarItem.selectedImage = selectedImage
-        
         return navController
     
     }

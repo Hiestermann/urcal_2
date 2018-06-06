@@ -37,6 +37,10 @@
 		3934260B1EE2F1F400C98BF2 /* Section2ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934260A1EE2F1F400C98BF2 /* Section2ButtonCell.swift */; };
 		3934260D1EE2F90400C98BF2 /* UsernameSettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3934260C1EE2F90400C98BF2 /* UsernameSettingsCell.swift */; };
 		39475EE11EC6297500B80816 /* HomeControllerViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39475EE01EC6297500B80816 /* HomeControllerViewCells.swift */; };
+		3957713020C4958000E97EDE /* NotificationCenterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3957712F20C4958000E97EDE /* NotificationCenterCollectionView.swift */; };
+		3957713320C4977900E97EDE /* NotificationCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3957713220C4977900E97EDE /* NotificationCenterCell.swift */; };
+		3957713520C5260D00E97EDE /* NotificationCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3957713420C5260D00E97EDE /* NotificationCenterViewController.swift */; };
+		3957713720C5733A00E97EDE /* UserNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3957713620C5733A00E97EDE /* UserNotification.swift */; };
 		396503361EE8AAAF00AE5877 /* RangeSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 396503351EE8AAAF00AE5877 /* RangeSettingsController.swift */; };
 		39A06436208E6D81001E0EA5 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A06435208E6D81001E0EA5 /* CommentCell.swift */; };
 		39CA1FE11EC1D85F00B6396D /* PhotoCreatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39CA1FE01EC1D85F00B6396D /* PhotoCreatorController.swift */; };
@@ -106,6 +110,10 @@
 		3934260A1EE2F1F400C98BF2 /* Section2ButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Section2ButtonCell.swift; sourceTree = "<group>"; };
 		3934260C1EE2F90400C98BF2 /* UsernameSettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsernameSettingsCell.swift; sourceTree = "<group>"; };
 		39475EE01EC6297500B80816 /* HomeControllerViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeControllerViewCells.swift; sourceTree = "<group>"; };
+		3957712F20C4958000E97EDE /* NotificationCenterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterCollectionView.swift; sourceTree = "<group>"; };
+		3957713220C4977900E97EDE /* NotificationCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterCell.swift; sourceTree = "<group>"; };
+		3957713420C5260D00E97EDE /* NotificationCenterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterViewController.swift; sourceTree = "<group>"; };
+		3957713620C5733A00E97EDE /* UserNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNotification.swift; sourceTree = "<group>"; };
 		396503351EE8AAAF00AE5877 /* RangeSettingsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RangeSettingsController.swift; sourceTree = "<group>"; };
 		39A06435208E6D81001E0EA5 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		39CA1FE01EC1D85F00B6396D /* PhotoCreatorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCreatorController.swift; sourceTree = "<group>"; };
@@ -231,6 +239,7 @@
 				39EAF91520832D260006DB87 /* urcal-Bridging-Header.h */,
 				3920E83D1EB7443500C2A80E /* LaunchScreen.storyboard */,
 				3920E8401EB7443500C2A80E /* Info.plist */,
+				3957713120C4976700E97EDE /* NotificationCenter */,
 				3920E8671EB773F900C2A80E /* GoogleService-Info.plist */,
 			);
 			path = urcal;
@@ -328,6 +337,17 @@
 			name = UserSettings;
 			sourceTree = "<group>";
 		};
+		3957713120C4976700E97EDE /* NotificationCenter */ = {
+			isa = PBXGroup;
+			children = (
+				3957712F20C4958000E97EDE /* NotificationCenterCollectionView.swift */,
+				3957713220C4977900E97EDE /* NotificationCenterCell.swift */,
+				3957713420C5260D00E97EDE /* NotificationCenterViewController.swift */,
+				3957713620C5733A00E97EDE /* UserNotification.swift */,
+			);
+			name = NotificationCenter;
+			sourceTree = "<group>";
+		};
 		39CA1FE21EC1DA8E00B6396D /* AddPhoto */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,7 +407,6 @@
 				3920E82E1EB7443500C2A80E /* Frameworks */,
 				3920E82F1EB7443500C2A80E /* Resources */,
 				EB00B603B1196CAE919A3608 /* [CP] Embed Pods Frameworks */,
-				55E8B9AC84C0988325098AB9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -531,21 +550,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		55E8B9AC84C0988325098AB9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-urcal/Pods-urcal-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		EB00B603B1196CAE919A3608 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -553,15 +557,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-urcal/Pods-urcal-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/FlexLayout/FlexLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/PinLayout/PinLayout.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FlexLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GeoFire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PinLayout.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -597,6 +605,7 @@
 				39EB4C4A208F19A300BA2022 /* ContainerView.swift in Sources */,
 				39A06436208E6D81001E0EA5 /* CommentCell.swift in Sources */,
 				396503361EE8AAAF00AE5877 /* RangeSettingsController.swift in Sources */,
+				3957713520C5260D00E97EDE /* NotificationCenterViewController.swift in Sources */,
 				39CA20231EC5A4B100B6396D /* UserProfileCells.swift in Sources */,
 				3923008F1ECE338F00F952F2 /* PopUpController.swift in Sources */,
 				3915451D1ED9FD7F00C420FA /* LocationSearchTable.swift in Sources */,
@@ -608,7 +617,10 @@
 				3920E86C1EB8789000C2A80E /* UserProfileController.swift in Sources */,
 				39CA1FE11EC1D85F00B6396D /* PhotoCreatorController.swift in Sources */,
 				393426091EE2C94A00C98BF2 /* Section1ButtonCell.swift in Sources */,
+				3957713020C4958000E97EDE /* NotificationCenterCollectionView.swift in Sources */,
 				3920E8351EB7443500C2A80E /* AppDelegate.swift in Sources */,
+				3957713320C4977900E97EDE /* NotificationCenterCell.swift in Sources */,
+				3957713720C5733A00E97EDE /* UserNotification.swift in Sources */,
 				3920E8731EBE717500C2A80E /* LoginController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

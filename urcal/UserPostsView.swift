@@ -14,13 +14,9 @@ class UserPostsView: UICollectionViewController, UICollectionViewDelegateFlowLay
     var user: User?
     var posts = [Post]()
     
-    let backView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    let cellId = "cellID"
+    let headerId = "headerID"
     
-    let cellId = "cellId"
-    let headerId = "headerId"
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear"), style: .plain, target: self, action: #selector(showUserSettings))
@@ -40,81 +36,33 @@ class UserPostsView: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return posts.count
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 300)
+        return CGSize(width: view.frame.width, height: 100)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath)
-        header.backgroundColor = .red
         return header
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 100)
+        let height = (view.frame.width / 2) + 118
+        return CGSize(width: view.frame.width, height: height)
         
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! HomeControllerViewCell
-        cell.backgroundColor = .blue
+        if let user = user {
+            let post = UserPost(user: user, post: posts[indexPath.item])
+            cell.post = post
+        }
+        
         return cell
     }
-    
-    
-    
-//
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId) as! UserPostHeader
-//        header.delegate = self
-//        header.user = user
-//        return header
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return 200
-//    }
-//
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        if posts.count == 0 {
-//
-//            self.view.addSubview(backView)
-//            backView.anchor(top: self.view.topAnchor, left: self.view.leftAnchor, bottom: self.view.bottomAnchor, right: self.view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
-//            return 0
-//
-//        }else {
-//
-//        return posts.count
-//        }
-//    }
-//
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserPostsCells
-//        cell.post = posts[indexPath.item]
-//        return cell
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
-//
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        showPostEdit(post: posts[indexPath.item])
-//    }
-//
-//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//
-//        let uid = posts[indexPath.item].uid
-//        let postId = posts[indexPath.item].postId
-//
-//        Database.database().reference().child("posts").child(postId).removeValue()
-//        Database.database().reference().child("users").child(uid).child("posts").child(postId).removeValue()
-//        posts.remove(at: indexPath.item)
-//        tableView.deleteRows(at: [indexPath], with: .automatic)
-//    }
-    
+   
     fileprivate func fetchUserPosts() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
@@ -159,7 +107,6 @@ class UserPostsView: UICollectionViewController, UICollectionViewDelegateFlowLay
 
 extension UserPostsView: UserPostHeaderDelegate {
     func didTapEditProfile() {
-        print("Hello")
         let layout = UICollectionViewFlowLayout()
         let userSettings = UserSettings(collectionViewLayout: layout)
         self.navigationController?.pushViewController(userSettings, animated: true)

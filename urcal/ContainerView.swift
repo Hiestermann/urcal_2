@@ -53,6 +53,7 @@ class ContainerView: UIView, UITextViewDelegate {
         }
     }
     
+    
     func handleSubmitButton() {
         delegate?.handleSend(text: commentTextView.text)
         submitButton.isUserInteractionEnabled = false

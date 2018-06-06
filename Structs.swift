@@ -22,13 +22,11 @@ struct User {
 }
 
 struct Comment{
-    //let creationDate: Date
     let commendID: String
     let text: String
     let uid: String
     
     init(commentID: String, dictionary: [String: Any]) {
-       // self.creationDate = creationDate
         self.commendID = commentID
         self.text = dictionary["text"] as? String ?? ""
         self.uid = dictionary["uid"] as? String ?? ""

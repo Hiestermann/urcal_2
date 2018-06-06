@@ -67,7 +67,7 @@ extension UIImageView{
             return
         }
         
-        let url = URL(string: urlString )!
+        guard let url = URL(string: urlString ) else { return }
         let task = URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             
             if error != nil {
